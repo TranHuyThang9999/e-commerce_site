@@ -36,5 +36,17 @@ ul {
     border-radius: 10px;
     margin-right: 5px;
     color: white;
+
   }
 
+  .messages {
+    height: 500px;
+    overflow-y: auto;
+  }
+  
+  .messages ul li {
+    max-width: 150px;
+    word-wrap: break-word;
+
+  }
+  

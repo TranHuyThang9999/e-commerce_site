@@ -46,7 +46,7 @@ function Channels() {
 
                 <Form.Item>
 
-                    <div style={{  height: '500px', backgroundColor: 'white' }}>
+                    <div className='messages' style={{  height: '500px', backgroundColor: 'white' }}>
 
                         <ul>
                             {messages.map((message) => (
