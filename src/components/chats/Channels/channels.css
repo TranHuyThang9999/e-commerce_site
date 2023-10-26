@@ -1,21 +1,41 @@
-
-.form-container-textArea{
-    background-color: white;
-
+.form-container-textArea {
+    background-color: dodgerblue;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     max-width: 400px;
     padding-top: 2px;
 }
-.form-name-and-status{
+
+.form-name-and-status {
     display: flex;
     height: 30px;
 }
 
 
 .form-header-message {
-    
     border-top: none;
     border-left: none;
     border-right: none;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: right;
+    float: right;
+    width: 100%;
   }
   
+  li {
+    display: block;
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: gray;
+    margin-top: 10px;
+    float: right;
+    clear: both;
+    border-radius: 20px;
+    margin-right: 5px;
+    color: white;
+  }
+  
+ 

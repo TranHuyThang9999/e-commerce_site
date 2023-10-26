@@ -15,7 +15,6 @@ function Channels() {
         setMessage('');
     }
 
-  
 
     return (
         <div>
@@ -48,10 +47,20 @@ function Channels() {
 
                 <Form.Item>
 
-                    <TextArea
-                        style={{ color: 'blueviolet' }}
-                        value={messages.join('\n')}
-                         />
+                    <div style={{ height: '500px', backgroundColor: 'white' }}>
+                        {/* <p style={{ backgroundColor: 'gray', color: 'white', padding: '10px', minHeight: '20px', maxWidth: '45%', borderRadius: '20px' }}>
+
+                            {messages.map((message) => (
+                                <li key={message}>{message}</li>
+                            ))}
+
+                        </p> */}
+                        <ul>
+                            {messages.map((message) => (
+                                <li key={message}>{message}</li>
+                            ))}
+                        </ul>
+                    </div>
                     <Space.Compact
                         style={{
                             width: '100%',
