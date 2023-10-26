@@ -1,8 +1,7 @@
 import { Button, Form, Image, Input, Space } from 'antd';
-import React, { useState, useEffect, useReducer } from 'react';
+import React, { useState } from 'react';
 import "./HistoryChat.css"
 import { SendOutlined } from '@ant-design/icons';
-const { TextArea } = Input;
 
 
 
@@ -15,9 +14,19 @@ const tailLayout = {
 
 
 function HistoryChat() {
+
+    const [message, setMessage] = useState('');
+    const [messages,setMessages]=useState([]);
+
+ 
+   const handleSubmit=()=>{
+    setMessages(prev =>[...prev,message]);
+    setMessage('');
+   }
+
     return (
         <div>
-             <Form
+            <Form
                 layout="horizontal"
                 {...tailLayout}
                 className='form-container'
@@ -27,13 +36,15 @@ function HistoryChat() {
                 <Form.Item
                 >
                     <header>
-                        <Image  />
+                        <Image />
                     </header>
-                    <TextArea
+                    <Input.TextArea
                         className='form-TextArea'
-                        value={show ? message : ''}
+                        value={messages}
+                        onChange={e => setMessage(e.target.value)}
+
                     >
-                    </TextArea>
+                    </Input.TextArea>
                     <Space.Compact
                         style={{
                             width: '100%',
@@ -41,8 +52,8 @@ function HistoryChat() {
                         }}
                     >
                         <Input
-                            onChange={(e) => setMessage(e.target.value)}
-
+                            value={message}
+                            onChange={e => setMessage(e.target.value)}
                         />
                         <Button style={{
                             height: '50px'
