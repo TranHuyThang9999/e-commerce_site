@@ -1,0 +1,29 @@
+.form-container {
+    background-color: white;
+    padding: 30px;
+
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+    height: auto;
+    margin: 50px auto;
+    /* Cách top 50px */
+}
+
+.form-TextArea {
+    background-color: pink;
+    width: 800px;
+    height: 100%;
+    margin-bottom: 0;
+}
+
+textarea:where(.css-dev-only-do-not-override-xu9wm8).ant-input {
+    height: 450px;
+    background-color: cornflowerblue;
+}
+
+.ant-input {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
