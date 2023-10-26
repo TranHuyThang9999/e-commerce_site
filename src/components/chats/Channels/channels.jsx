@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import "./channels.css"
 import { SendOutlined } from '@ant-design/icons';
 
-const { TextArea } = Input;
 
 function Channels() {
 
@@ -47,14 +46,8 @@ function Channels() {
 
                 <Form.Item>
 
-                    <div style={{ height: '500px', backgroundColor: 'white' }}>
-                        {/* <p style={{ backgroundColor: 'gray', color: 'white', padding: '10px', minHeight: '20px', maxWidth: '45%', borderRadius: '20px' }}>
+                    <div style={{  height: '500px', backgroundColor: 'white' }}>
 
-                            {messages.map((message) => (
-                                <li key={message}>{message}</li>
-                            ))}
-
-                        </p> */}
                         <ul>
                             {messages.map((message) => (
                                 <li key={message}>{message}</li>
