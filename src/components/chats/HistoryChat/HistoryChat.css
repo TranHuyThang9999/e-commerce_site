@@ -1,7 +1,6 @@
 .form-container {
     background-color: darkcyan;
     padding: 30px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     max-width: 600px;
     height: auto;
     margin: 50px auto;
@@ -9,14 +8,16 @@
 }
 
 
-textarea:where(.css-dev-only-do-not-override-xu9wm8).ant-input {
-    height: 450px;
-    background-color: white;
-}
+.form-container-channel{
+    display: flex;
+    background-color: gray;
+    justify-content: flex-end; /* Thay thế "end" bằng "flex-end" */
+    width: 800px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: darkcyan;
 
-.ant-input {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+}
+.channels-container{
+    width: 400px;
 }

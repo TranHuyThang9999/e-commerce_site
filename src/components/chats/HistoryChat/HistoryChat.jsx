@@ -1,17 +1,7 @@
-import { Form } from 'antd';
 import React from 'react';
 import "./HistoryChat.css"
 import Channels from '../Channels/channels';
 
-
-
-
-const tailLayout = {
-    wrapperCol: {
-        offset: 8,
-        span: 16,
-    },
-};
 
 
 function HistoryChat() {
@@ -19,18 +9,13 @@ function HistoryChat() {
 
     return (
         <div>
-            <Form
-                layout="horizontal"
-                {...tailLayout}
-                className='form-container'>
 
-                <Form.Item>
+            <div className='form-container-channel'>
+                <div className='channels-container'>
+                <Channels />
+                </div>
+            </div>
 
-                    <Channels className='form-TextArea' />
-
-                </Form.Item>
-
-            </Form>
         </div>
     );
 }

@@ -36,7 +36,7 @@ function Channels() {
 
     return (
         <div>
-            <Form className='form-container-textArea'
+            <Form style={{borderRadius:'5px'}} className='form-container-textArea'
             >
                 <Form.Item style={{ height: '32px' }} className='form-header-message'>
                     <Space size={10} wrap>
