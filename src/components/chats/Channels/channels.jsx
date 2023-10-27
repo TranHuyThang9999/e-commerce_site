@@ -1,11 +1,12 @@
 import { Avatar, Form, Input, Space, Button } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import "./channels.css"
 import { SendOutlined } from '@ant-design/icons';
 
 
 function Channels() {
 
+    const socket = useRef(null);
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
 
@@ -13,6 +14,24 @@ function Channels() {
         setMessages(prev => [...prev, message.trim()]);
         setMessage('');
     }
+
+
+    useEffect(() => {
+        socket.current = new WebSocket('ws://localhost:8080');
+
+        socket.current.onmessage = (event) => {
+            const message = JSON.parse(event.data);
+            setMessages(prev => [...prev, message.text]);
+        };
+
+        return () => {
+            cleanup();
+        };
+    }, []);
+
+    const cleanup = () => {
+        socket.current.close();
+    };
 
 
     return (
