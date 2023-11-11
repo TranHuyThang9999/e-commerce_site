@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import "./hadlerImages.css"
-import { Card, Image, Col, Row, Upload } from 'antd';
+import { Card, Image, Col, Row, Upload, Button, Input } from 'antd';
 
 
 function HandlerImages() {
@@ -26,21 +26,32 @@ function HandlerImages() {
             <h2>Get all</h2>
             <div>
                 <label htmlFor="userId">Enter User ID: </label>
-                <input
-                    type="text"
-                    id="userId"
-                    value={userId}
-                    onChange={(e) => setUserId(e.target.value)}
-                />
-                <button onClick={handleButtonClick}>Fetch Data</button>
+
+                <Row>
+                    <Col span={8}>
+                        <Input
+                            type="text"
+                            id="userId"
+                            value={userId}
+                            onChange={(e) => setUserId(e.target.value)}
+                        />
+                    </Col>
+                    <Col span={8}>
+                        <Button onClick={handleButtonClick}>Fetch Data</Button>
+                    </Col>
+                    <Col span={8}>
+                        <Button>Add</Button>
+                    </Col>
+                </Row>
             </div>
             <div>
                 <Row gutter={16}>
                     {infoImages.map((image) => (
-                        <Col span={8}>
+                        <Col flex={3}>
                             <Card
 
                                 title={
+
                                     <Upload
                                         disabled={true}
 
@@ -48,7 +59,6 @@ function HandlerImages() {
 
                                         beforeUpload={() => false}
                                         listType="picture-card"
-                                        showUploadList={false}
                                         style={{ width: '100%' }}
                                     >
                                         <Image
@@ -60,7 +70,26 @@ function HandlerImages() {
                                 }
                             >
 
-                                Code Product : {image.id_image}
+                                <Row>
+                                    <Col flex={6}>
+                                        <div style={{
+                                            overflow: 'hidden',
+                                            whiteSpace: 'nowrap',
+                                            textOverflow: 'ellipsis',
+                                            maxWidth: '200px',  // Adjust the maximum width as needed
+                                            lineHeight: '1.8rem',
+                                            display: 'block',
+                                        }}>
+                                            id: {image.id_image}
+                                        </div>
+                                    </Col>
+
+                                    <Col flex={3}>
+                                        <Button>
+                                            Delete
+                                        </Button>
+                                    </Col>
+                                </Row>
                             </Card>
                         </Col>
                     ))}
