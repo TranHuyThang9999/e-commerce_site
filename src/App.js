@@ -1,11 +1,12 @@
-import HistoryChat from "./components/chats/HistoryChat/HistoryChat";
+import HandlerImages from "./components/handlerImages/handlerImages";
+
 
 function App() {
   return (
     <div>
-      <HistoryChat/>
+      {/* <HistoryChat/> */}
       {/* <Message/> */}
-      {/* <TestApp/> */}
+      <HandlerImages/>
     </div>
   );
 }
