@@ -1,3 +1,6 @@
+import FindCheck from "./components/FIndCheck/FindCheck";
+import AppChat from "./components/chats/Messages/message";
+import AddImage from "./components/handlerImages/addImage";
 import HandlerImages from "./components/handlerImages/handlerImages";
 
 
@@ -6,7 +9,9 @@ function App() {
     <div>
       {/* <HistoryChat/> */}
       {/* <Message/> */}
-      <HandlerImages/>
+      {/* <HandlerImages/> */}
+      {/* <AddImage/> */}
+      <FindCheck/>
     </div>
   );
 }

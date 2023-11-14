@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import "./hadlerImages.css"
-import { Card, Image, Col, Row, Upload, Button, Input } from 'antd';
+import { Card, Image, Col, Row, Upload, Button, Input, Modal, message, Popconfirm } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
+import AddImage from './addImage';
 
 
 function HandlerImages() {
     const [infoImages, setInfoImages] = useState([]);
     const [userId, setUserId] = useState('');
+    // const [idImage, setIdImage] = useState('');
 
     const fetchData = async (id) => {
         try {
@@ -17,8 +20,47 @@ function HandlerImages() {
         }
     }
 
+    const deleteImage = async (id) => {
+        try {
+            const response = await axios.delete(`http://localhost:8080/sell/img/delete?id_image=${id}`);
+            console.log(response);
+            if (response.data.result.code === 0) {
+                message.success("Delete success");
+                fetchData(userId); // Refetch data after successful deletion
+            } else {
+                message.error("Error server");
+            }
+        } catch (error) {
+            console.error("Error deleting image:", error);
+        }
+    };
+
     const handleButtonClick = () => {
         fetchData(userId);
+    };
+
+    const handleDeleteByid = (id) => {
+        deleteImage(id);
+    }
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+    const handleOk = () => {
+        setIsModalOpen(false);
+    };
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
+
+    const handleCreateSuccess = () => {
+        // Xử lý khi tạo thành công, ví dụ: refetch dữ liệu hoặc cập nhật state
+        fetchData(userId);
+
+        // Sau khi xử lý xong, tự đóng modal
+        handleOk();
     };
 
     return (
@@ -40,7 +82,20 @@ function HandlerImages() {
                         <Button onClick={handleButtonClick}>Fetch Data</Button>
                     </Col>
                     <Col span={8}>
-                        <Button>Add</Button>
+                        <Button icon={<UploadOutlined />} className='button-modal-add-product' type="primary" onClick={showModal}>
+                            Thêm sản phẩm
+                        </Button>
+                        <Modal
+                            width={650}
+                            footer
+                            className='button-modal-add-product'
+                            open={isModalOpen}
+                            onOk={handleOk}
+                            onCancel={handleCancel}
+                        >
+                            <AddImage onCreateSuccess={handleCreateSuccess} />
+
+                        </Modal>
                     </Col>
                 </Row>
             </div>
@@ -85,9 +140,15 @@ function HandlerImages() {
                                     </Col>
 
                                     <Col flex={3}>
-                                        <Button>
-                                            Delete
-                                        </Button>
+                                        <Popconfirm
+                                            title="Delete the task"
+                                            okText="Yes"
+                                            cancelText="No"
+                                            onConfirm={() => handleDeleteByid(image.id_image)}
+
+                                        >
+                                            <Button  danger>Delete</Button>
+                                        </Popconfirm>
                                     </Col>
                                 </Row>
                             </Card>
