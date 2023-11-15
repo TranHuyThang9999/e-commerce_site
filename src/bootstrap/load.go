@@ -21,7 +21,8 @@ func Load() []fx.Option {
 }
 func loadUseCase() []fx.Option {
 	return []fx.Option{
-		fx.Provide(usercases.NewUserUseCase),
+		//	fx.Provide(usercases.NewUserUseCase),
+		fx.Provide(usercases.NewUseCaseAccount),
 	}
 }
 
@@ -32,13 +33,17 @@ func loadValidator() []fx.Option {
 }
 func loadEngine() []fx.Option {
 	return []fx.Option{
-		fx.Provide(controllers.NewControllerUser),
+		//	fx.Provide(controllers.NewControllerUser),
 		fx.Provide(routers.NewApiRouter),
+		fx.Provide(controllers.NewBaseController),
+		fx.Provide(controllers.NewControllerAccount),
 	}
 }
 func loadAdapter() []fx.Option {
 	return []fx.Option{
 		fx.Provide(adapter.NewpostgreDb),
-		fx.Provide(postgresql.NewRepositoryUser),
+		fx.Provide(postgresql.NewTransaction),
+		fx.Provide(postgresql.NewAccountRepository),
+		fx.Provide(postgresql.NewRoleRepository),
 	}
 }

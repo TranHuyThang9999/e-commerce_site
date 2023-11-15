@@ -1,8 +1,8 @@
 package routers
 
 import (
-	"ecommerce_site/src/adapter/configs"
 	"ecommerce_site/src/api/controllers"
+	"ecommerce_site/src/configs"
 	"fmt"
 
 	"github.com/gin-gonic/gin"
@@ -16,7 +16,7 @@ type ApiRouter struct {
 }
 
 func NewApiRouter(
-	controllersUser *controllers.ControllersUser,
+	controllersAccount *controllers.AccountController,
 	cf *configs.Configs,
 ) *ApiRouter {
 	engine := gin.New()
@@ -34,7 +34,7 @@ func NewApiRouter(
 		c.JSON(200, gin.H{"message": "pong"})
 	})
 
-	r.POST("/add", controllersUser.AddProfile)
+	r.POST("/add", controllersAccount.CreateAccount)
 
 	return &ApiRouter{
 		Engine: engine,

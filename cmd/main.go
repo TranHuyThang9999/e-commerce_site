@@ -2,10 +2,10 @@ package main
 
 import (
 	"context"
-	"ecommerce_site/src/adapter/configs"
 	"ecommerce_site/src/api/routers"
 	"ecommerce_site/src/bootstrap"
 	"ecommerce_site/src/common/log"
+	"ecommerce_site/src/configs"
 	"flag"
 	"net/http"
 	"os"

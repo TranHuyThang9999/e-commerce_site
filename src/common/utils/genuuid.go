@@ -2,7 +2,6 @@ package utils
 
 import (
 	"encoding/binary"
-	"fmt"
 	"sync"
 	"time"
 )
@@ -57,13 +56,6 @@ func GetCurrentTimestamp() int64 {
 	currentTime := time.Now()
 	timestamp := currentTime.Unix()
 	return int64(timestamp)
-}
-
-func GetNameImage() string {
-	currentTime := time.Now()
-	timeString := currentTime.Format("2006-01-02-15:04:05")
-
-	return fmt.Sprintf("%s.jpg", string(timeString))
 }
 
 func CodeOPT() int {

@@ -1,23 +1,6 @@
+thiết kế database bảng user với 3 vai trò --  người dùng ban đầu đk vào dùng app là người mua , sau đó có thể là đk bán , người quản trị có thể khóa trạng thái mua hoặc bán của người dùng
 
-func (t *ControllerUser) AddProfile(c *gin.Context) {
-	var req models.ImagesReq
-	if err := c.ShouldBind(&req); err != nil {
-		c.JSON(http.StatusBadRequest, err)
-		return
-	}
-
-	files, err := getUploadedFiles(c)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
-	req.Files = files
-
-	resp, err := t.ctl.AddProfile(c, &req)
-	if err != nil {
-		c.JSON(200, resp)
-		return
-	}
-	c.JSON(200, resp)
-}
+user có --
+--------id, FullName ,Age , Address , Email (xác thực mã OTP gửi về), nếu là người dung thì thêm phần địa chỉ nhân hàng , UserName , password 
+-------nếu là người bán có thêm gian hàng bản thân 
+------- người mua có thể xem mặt hàng , add vào giỏ , mua (thanh toán online trước hoặc sau) , hoàn trả hàng , đánh giá sản phẩm 

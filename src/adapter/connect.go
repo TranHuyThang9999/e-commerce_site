@@ -1,7 +1,7 @@
 package adapter
 
 import (
-	"ecommerce_site/src/adapter/configs"
+	"ecommerce_site/src/configs"
 	"fmt"
 	"log"
 

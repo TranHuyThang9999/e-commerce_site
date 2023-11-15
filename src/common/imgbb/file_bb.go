@@ -1,8 +1,8 @@
-package utils
+package imgbb
 
 import (
 	"bytes"
-	"ecommerce_site/src/core/entities"
+	"ecommerce_site/src/adapter/model"
 	"fmt"
 
 	"encoding/json"
@@ -14,8 +14,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func ProcessImages(fileHeaders []*multipart.FileHeader) ([]entities.Data, error) {
-	var result []entities.Data
+func ProcessImages(fileHeaders []*multipart.FileHeader) ([]model.Data, error) {
+	var result []model.Data
 
 	url := "https://api.imgbb.com/1/upload?key=35ab53548bf387fc865eded79efa0a19"
 	method := "POST"
@@ -69,7 +69,7 @@ func ProcessImages(fileHeaders []*multipart.FileHeader) ([]entities.Data, error)
 			return nil, err
 		}
 
-		data := entities.Data{
+		data := model.Data{
 			//	ID:  responseData["data"].(map[string]interface{})["id"].(string),
 			URL: responseData["data"].(map[string]interface{})["url"].(string),
 		}
@@ -80,8 +80,8 @@ func ProcessImages(fileHeaders []*multipart.FileHeader) ([]entities.Data, error)
 	return result, nil
 }
 
-func ProcessImageSign(fileHeader *multipart.FileHeader) (entities.Data, error) {
-	var result entities.Data
+func ProcessImageSign(fileHeader *multipart.FileHeader) (model.Data, error) {
+	var result model.Data
 
 	url := "https://api.imgbb.com/1/upload?key=35ab53548bf387fc865eded79efa0a19"
 	method := "POST"
