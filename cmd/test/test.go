@@ -6,5 +6,5 @@ import (
 )
 
 func main() {
-	fmt.Println(strings.ToUpper("Store_Name"))
+	fmt.Println(strings.ToUpper("VerifiedAccount_Success_mess"))
 }

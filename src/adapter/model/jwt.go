@@ -23,3 +23,6 @@ type LoginReq struct {
 	UserName string `form:"user_name"`
 	Password string `form:"password"`
 }
+type VerifiedAccountResp struct {
+	Result Result `json:"result"`
+}

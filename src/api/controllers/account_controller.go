@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"ecommerce_site/src/adapter/model"
-	"ecommerce_site/src/core/usercases"
+	"ecommerce_site/src/core/usecases"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -10,10 +10,10 @@ import (
 
 type AccountController struct {
 	*baseController
-	account *usercases.UseCaseAccount
+	account *usecases.UseCaseAccount
 }
 
-func NewControllerAccount(account *usercases.UseCaseAccount) *AccountController {
+func NewControllerAccount(account *usecases.UseCaseAccount) *AccountController {
 	return &AccountController{
 		account: account,
 	}

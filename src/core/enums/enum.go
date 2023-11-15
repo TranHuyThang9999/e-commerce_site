@@ -39,6 +39,12 @@ const (
 
 	CREATE_TOKEN      = 22
 	CREATE_TOKEN_MESS = "create token error"
+
+	VERIFIEDACCOUNT_ERROR_CODE = 24
+	VERIFIEDACCOUNT_ERROR_MESS = "verified code error"
+
+	CONVERT_TO_NUMBER_CODE = 26
+	CONVERT_TO_NUMBER_MESS = "error convert string to number"
 )
 
 const (

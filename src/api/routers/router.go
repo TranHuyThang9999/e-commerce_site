@@ -2,6 +2,7 @@ package routers
 
 import (
 	"ecommerce_site/src/api/controllers"
+	"ecommerce_site/src/api/middleware"
 	"ecommerce_site/src/configs"
 	"fmt"
 
@@ -18,6 +19,8 @@ type ApiRouter struct {
 func NewApiRouter(
 	controllersAccount *controllers.AccountController,
 	controllerAuth *controllers.AuthController,
+	middleware *middleware.MiddleWare,
+
 	cf *configs.Configs,
 ) *ApiRouter {
 	engine := gin.New()
@@ -37,6 +40,12 @@ func NewApiRouter(
 
 	r.POST("/add", controllersAccount.CreateAccount)
 	r.POST("/login", controllerAuth.Login)
+	r.POST("/verified", controllerAuth.VerifiedAccount)
+	// userGroup.Use(middleware.Authenticate())
+	// {
+
+	// }
+
 	return &ApiRouter{
 		Engine: engine,
 	}

@@ -1,4 +1,4 @@
-package usercases
+package usecases
 
 import (
 	"context"
@@ -10,6 +10,7 @@ import (
 	"ecommerce_site/src/core/ports"
 	"errors"
 	"fmt"
+	"strconv"
 	"time"
 
 	"github.com/golang-jwt/jwt/v4"
@@ -141,5 +142,62 @@ func (u *JwtUseCase) LoginAccount(ctx context.Context, userName, passWord string
 			Message: enums.SUCCESS_MESS,
 		},
 		JwtToken: token,
+	}, nil
+}
+
+func (u *JwtUseCase) VerifiedAccount(ctx context.Context, userName string, code string) (*model.VerifiedAccountResp, error) {
+	account, err := u.userRepositoryPort.GetInfomationByUserName(ctx, userName)
+	if err != nil {
+		return &model.VerifiedAccountResp{
+			Result: model.Result{
+				Code:    enums.DB_ERR_CODE,
+				Message: enums.DB_ERR_MESS,
+			},
+		}, nil
+	}
+
+	if account == nil {
+		return &model.VerifiedAccountResp{
+			Result: model.Result{
+				Code:    enums.ACCOUNT_NOT_EXIST_CODE,
+				Message: enums.ACCOUNT_NOT_EXIST_MESS,
+			},
+		}, nil
+	}
+
+	numOffset, err := strconv.Atoi(code)
+	if err != nil {
+		return &model.VerifiedAccountResp{
+			Result: model.Result{
+				Code:    enums.CONVERT_TO_NUMBER_CODE,
+				Message: enums.CONVERT_TO_NUMBER_MESS,
+			},
+		}, nil
+	}
+	if account.OTPCode != int64(numOffset) {
+		return &model.VerifiedAccountResp{
+			Result: model.Result{
+				Code:    enums.VERIFIEDACCOUNT_ERROR_CODE,
+				Message: enums.VERIFIEDACCOUNT_ERROR_MESS,
+			},
+		}, nil
+	}
+	err = u.userRepositoryPort.UpdateAccount(ctx, &model.Account{
+		ID:         account.ID,
+		IsVerified: enums.IS_VERIFIED,
+	})
+	if err != nil {
+		return &model.VerifiedAccountResp{
+			Result: model.Result{
+				Code:    enums.DB_ERR_CODE,
+				Message: enums.DB_ERR_MESS,
+			},
+		}, nil
+	}
+	return &model.VerifiedAccountResp{
+		Result: model.Result{
+			Code:    enums.SUCCESS_CODE,
+			Message: enums.SUCCESS_MESS,
+		},
 	}, nil
 }
