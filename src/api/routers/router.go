@@ -17,6 +17,7 @@ type ApiRouter struct {
 
 func NewApiRouter(
 	controllersAccount *controllers.AccountController,
+	controllerAuth *controllers.AuthController,
 	cf *configs.Configs,
 ) *ApiRouter {
 	engine := gin.New()
@@ -35,7 +36,7 @@ func NewApiRouter(
 	})
 
 	r.POST("/add", controllersAccount.CreateAccount)
-
+	r.POST("/login", controllerAuth.Login)
 	return &ApiRouter{
 		Engine: engine,
 	}

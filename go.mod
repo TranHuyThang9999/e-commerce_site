@@ -54,6 +54,7 @@ require (
 
 require (
 	github.com/gin-gonic/gin v1.9.1
+	github.com/golang-jwt/jwt/v4 v4.5.0
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.19 // indirect
 	github.com/rs/cors/wrapper/gin v0.0.0-20231013084403-73f81b45a644

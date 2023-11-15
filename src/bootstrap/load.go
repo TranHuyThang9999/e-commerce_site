@@ -23,6 +23,7 @@ func loadUseCase() []fx.Option {
 	return []fx.Option{
 		//	fx.Provide(usercases.NewUserUseCase),
 		fx.Provide(usercases.NewUseCaseAccount),
+		fx.Provide(usercases.NewJwtUseCase),
 	}
 }
 
@@ -37,6 +38,7 @@ func loadEngine() []fx.Option {
 		fx.Provide(routers.NewApiRouter),
 		fx.Provide(controllers.NewBaseController),
 		fx.Provide(controllers.NewControllerAccount),
+		fx.Provide(controllers.NewAuthController),
 	}
 }
 func loadAdapter() []fx.Option {

@@ -26,17 +26,17 @@ type Account struct {
 }
 
 type AccountReqCreate struct {
-	FirstName   string                `form:"first_name"`
-	LastName    string                `form:"last_name"`
-	Age         int                   `form:"age"`
-	Address     string                `form:"address"`
-	Gender      int                   `form:"gender"`
-	Email       string                `form:"email"`
-	PhoneNumber string                `form:"phone_number"`
-	UserName    string                `form:"user_name"`
-	Password    string                `form:"password"`
-	StoreName   string                `form:"store_name"`
-	Notes       string                `form:"notes"`
+	FirstName   string                `form:"first_name" validate:"required"`
+	LastName    string                `form:"last_name" validate:"required"`
+	Age         int                   `form:"age" validate:"required"`
+	Address     string                `form:"address" validate:"required"`
+	Gender      int                   `form:"gender" validate:"required,oneof= 39 41 43"`
+	Email       string                `form:"email" validate:"required"`
+	PhoneNumber string                `form:"phone_number" validate:"required"`
+	UserName    string                `form:"user_name" validate:"required"`
+	Password    string                `form:"password" validate:"required"`
+	StoreName   string                `form:"store_name" validate:"required"`
+	Notes       string                `form:"notes" validate:"required"`
 	File        *multipart.FileHeader `form:"file"`
 }
 

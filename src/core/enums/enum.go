@@ -34,8 +34,11 @@ const (
 	ERROR_SAVE_IMAGE_CODE  = 20
 	ERRORL_SAVE_IMAGE_MESS = "error save image"
 
-	STORE_NAME_EXITS_CODE = 18
+	STORE_NAME_EXITS_CODE = 22
 	STORE_NAME_EXITS_MESS = "StoreName exits"
+
+	CREATE_TOKEN      = 22
+	CREATE_TOKEN_MESS = "create token error"
 )
 
 const (

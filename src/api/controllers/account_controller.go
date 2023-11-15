@@ -9,6 +9,7 @@ import (
 )
 
 type AccountController struct {
+	*baseController
 	account *usercases.UseCaseAccount
 }
 
@@ -32,6 +33,12 @@ func (u *AccountController) CreateAccount(ctx *gin.Context) {
 		})
 		return
 	}
+
+	if err := u.validateRequest(&req); err != nil {
+		ctx.JSON(http.StatusBadRequest, err.Error())
+		return
+	}
+
 	req.File = file
 	resp, err := u.account.CreateAccount(ctx, &req)
 
