@@ -6,16 +6,6 @@ function CheckBox() {
     const [allchecked, setAllChecked] = useState([]);
     const [isChecked, setIsChecked] = useState(false);
 
-    // function handleChange(e) {
-    //     setChecked(e.target.checked);
-    // }
-    // useEffect(() => {
-    //     const storedState = localStorage.getItem('checkboxState');
-    //     if (storedState) {
-    //         setAllChecked(JSON.parse(storedState));
-    //     }
-    // }, []);
-
     function handleChangeAll(e) {
         if (e.target.checked) {
             setAllChecked([...allchecked, e.target.value]);
@@ -23,7 +13,6 @@ function CheckBox() {
             setAllChecked(allchecked.filter((item) => item !== e.target.value));
         }
         setIsChecked(true);
-        console.log("All Checked:", allchecked);
     }
 
     function handleSave() {
@@ -52,37 +41,43 @@ function CheckBox() {
             alert('No saved state found in localStorage.');
         }
     }
+    const jsonResult = {
+        dichvu1: allchecked.includes('1') ? 1 : 0,
+        dichvu2: allchecked.includes('2') ? 2 : 0,
+        dichvu3: allchecked.includes('3') ? 3 : 0,
+    };
+    function handleReturnJson() {
 
+        console.log('Return Json:', jsonResult);
+    }
 
-    console.log(localStorage.getItem('checkboxState'));
     return (
         <div className="form-check">
             <div>bao gồm các dịch vụ </div>
             <div>
-                <input value="1" type="checkbox" onChange={handleChangeAll} checked={allchecked.includes("One")} />
+                <input value="1" type="checkbox" onChange={handleChangeAll} checked={allchecked.includes("1")} />
                 <span> dịch vụ  1 </span>
             </div>
             <div>
-                <input value="2" type="checkbox" onChange={handleChangeAll} checked={allchecked.includes("Two")} />
+                <input value="2" type="checkbox" onChange={handleChangeAll} checked={allchecked.includes("2")} />
                 <span> dịch vụ 2 </span>
             </div>
             <div>
-                <input value="3" type="checkbox" onChange={handleChangeAll} checked={allchecked.includes("Three")} />
+                <input value="3" type="checkbox" onChange={handleChangeAll} checked={allchecked.includes("3")} />
                 <span> dịch vụ  3 </span>
             </div>
 
-            {/* <div>The all checked values are {allchecked.join(" , ")}</div> */}
             <Button type="primary" onClick={handleSave} disabled={allchecked.length === 0}>
                 Save State
             </Button>
             <Button type="default" onClick={handleLoad} style={{ marginLeft: '10px' }}>
                 Load State
             </Button>
-            <h3>Display values</h3>
-            <div>{allchecked}</div>
-            <div>Return Json{}</div>
-           
-
+            <Button type="default" onClick={handleReturnJson} style={{ marginLeft: '10px' }}>
+                Return Json
+            </Button>
+            <p>Data</p>
+            <pre>{JSON.stringify(jsonResult, null, 2)}</pre>
         </div>
     );
 }
