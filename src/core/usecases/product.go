@@ -63,7 +63,7 @@ func (u *ProductUseCase) AddProduct(ctx context.Context, req *model.ProductReqCr
 		}, nil
 	}
 
-	err = u.product.AddProduct(ctx, &model.Product{
+	err = u.product.AddProduct(ctx, tx, &model.Product{
 		ID:            idProduct,
 		IDUser:        account.ID,
 		NameProduct:   req.NameProduct,
@@ -78,6 +78,7 @@ func (u *ProductUseCase) AddProduct(ctx context.Context, req *model.ProductReqCr
 		IDTypeProduct: req.IDTypeProduct,
 	})
 	if err != nil {
+		tx.Rollback()
 		return &model.ProductRespCreate{
 			Result: model.Result{
 				Code:    enums.DB_ERR_CODE,

@@ -39,23 +39,6 @@ CREATE Table roles(
 );
 
 
-
-CREATE TABLE shipping_address (
-    id BIGINT PRIMARY KEY,            -- ID chính làm khóa chính
-    id_user BIGINT,                  -- ID của người dùng (user)
-    full_name VARCHAR(255),  -- Họ và tên
-    phone_number VARCHAR(20),-- Số điện thoại
-    province VARCHAR(255),   -- Tỉnh/Thành phố
-    district VARCHAR(255),   -- Quận/Huyện
-    commune VARCHAR(255) ,    -- Xã/Phường
-    village VARCHAR(255),    -- Làng/Đường
-    street_name VARCHAR(255),-- Tên đường
-    Notes VARCHAR(255),               -- Ghi chú
-    created_at INT,                   -- Ngày tạo
-    updated_at INT                    -- Ngày cập nhật
-);
-
-
 CREATE TABLE products(
     id BIGINT PRIMARY KEY,            -- ID chính làm khóa chính
     id_user BIGINT,
@@ -70,6 +53,10 @@ CREATE TABLE products(
     describe VARCHAR(510),
     id_type_product BIGINT
 );
+
+SELECT *FROM products;
+
+DELETE FROM products;
 
 CREATE TABLE image_storages(
     id BIGINT PRIMARY KEY,
@@ -88,6 +75,24 @@ CREATE TABLE orders(
     created_at INT,                   -- Ngày tạo
     updated_at INT                    -- Ngày cập nhật
 );
+
+
+
+CREATE TABLE shipping_address (
+    id BIGINT PRIMARY KEY,            -- ID chính làm khóa chính
+    id_user BIGINT,                  -- ID của người dùng (user)
+    full_name VARCHAR(255),  -- Họ và tên
+    phone_number VARCHAR(20),-- Số điện thoại
+    province VARCHAR(255),   -- Tỉnh/Thành phố
+    district VARCHAR(255),   -- Quận/Huyện
+    commune VARCHAR(255) ,    -- Xã/Phường
+    village VARCHAR(255),    -- Làng/Đường
+    street_name VARCHAR(255),-- Tên đường
+    Notes VARCHAR(255),               -- Ghi chú
+    created_at INT,                   -- Ngày tạo
+    updated_at INT                    -- Ngày cập nhật
+);
+
 
 CREATE TABLE carts(
     id BIGINT PRIMARY KEY,

@@ -19,8 +19,8 @@ func NewProductRepository(cf *configs.Configs, product *adapter.PostGresql) port
 		collection: product.CreateCollection(),
 	}
 }
-func (u *ProductCollection) AddProduct(ctx context.Context, req *model.Product) error {
-	result := u.collection.Create(req)
+func (u *ProductCollection) AddProduct(ctx context.Context, tx *gorm.DB, req *model.Product) error {
+	result := tx.Create(req)
 	return result.Error
 }
 func (u *ProductCollection) FindByForm(ctx context.Context, req *model.ProductReqFindByForm, limit, offset int) ([]*model.ProductRespFindByForm, error) {
