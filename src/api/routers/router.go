@@ -41,6 +41,7 @@ func NewApiRouter(
 	r.POST("/add", controllersAccount.CreateAccount)
 	r.POST("/login", controllerAuth.Login)
 	r.POST("/verified", controllerAuth.VerifiedAccount)
+	r.POST("/resendOtp", controllerAuth.ResendOtp)
 	// userGroup.Use(middleware.Authenticate())
 	// {
 

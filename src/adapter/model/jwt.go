@@ -26,3 +26,6 @@ type LoginReq struct {
 type VerifiedAccountResp struct {
 	Result Result `json:"result"`
 }
+type ResendOtpResp struct {
+	Result Result `json:"result"`
+}

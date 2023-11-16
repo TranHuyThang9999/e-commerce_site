@@ -45,3 +45,14 @@ func (u *AuthController) VerifiedAccount(ctx *gin.Context) {
 	}
 	ctx.JSON(http.StatusOK, resp)
 }
+func (u *AuthController) ResendOtp(ctx *gin.Context) {
+	userName := ctx.Query("userName")
+	email := ctx.Query("email")
+	resp, err := u.auth.ResendOtp(ctx, email, userName)
+
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error 1 ": err})
+		return
+	}
+	ctx.JSON(http.StatusOK, resp)
+}

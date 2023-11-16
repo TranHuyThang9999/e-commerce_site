@@ -40,11 +40,17 @@ const (
 	CREATE_TOKEN      = 22
 	CREATE_TOKEN_MESS = "create token error"
 
-	VERIFIEDACCOUNT_ERROR_CODE = 24
-	VERIFIEDACCOUNT_ERROR_MESS = "verified code error"
+	VERIFIED_ACCOUNT_ERROR_CODE = 24
+	VERIFIED_ACCOUNT_ERROR_MESS = "verified code error"
 
 	CONVERT_TO_NUMBER_CODE = 26
 	CONVERT_TO_NUMBER_MESS = "error convert string to number"
+
+	ACCOUNT_NOT_VERIFIED_CODE = 28
+	ACCOUNT_NOT_VERIFIED_MESS = "account not verified"
+
+	ACCOUNT_OR_PASSWORD_WRONG_CODE = 30
+	ACCOUNT_OR_PASSWORD_WRONG_MESS = "Wrong account or password"
 )
 
 const (

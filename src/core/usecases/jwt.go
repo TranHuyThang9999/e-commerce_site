@@ -111,8 +111,8 @@ func (u *JwtUseCase) LoginAccount(ctx context.Context, userName, passWord string
 	if account == nil {
 		return &model.ResponseLogin{
 			Result: model.Result{
-				Code:    enums.ACCOUNT_NOT_EXIST_CODE,
-				Message: enums.ACCOUNT_NOT_EXIST_MESS,
+				Code:    enums.ACCOUNT_OR_PASSWORD_WRONG_CODE,
+				Message: enums.ACCOUNT_OR_PASSWORD_WRONG_MESS,
 			},
 		}, nil
 	}
@@ -121,8 +121,17 @@ func (u *JwtUseCase) LoginAccount(ctx context.Context, userName, passWord string
 	if err != nil {
 		return &model.ResponseLogin{
 			Result: model.Result{
-				Code:    enums.ACCOUNT_NOT_EXIST_CODE,
-				Message: enums.ACCOUNT_NOT_EXIST_MESS,
+				Code:    enums.ACCOUNT_OR_PASSWORD_WRONG_CODE,
+				Message: enums.ACCOUNT_OR_PASSWORD_WRONG_MESS,
+			},
+		}, nil
+	}
+
+	if account.IsVerified == enums.NOT_VERIFIED {
+		return &model.ResponseLogin{
+			Result: model.Result{
+				Code:    enums.ACCOUNT_NOT_VERIFIED_CODE,
+				Message: enums.ACCOUNT_NOT_VERIFIED_MESS,
 			},
 		}, nil
 	}
@@ -177,8 +186,8 @@ func (u *JwtUseCase) VerifiedAccount(ctx context.Context, userName string, code 
 	if account.OTPCode != int64(numOffset) {
 		return &model.VerifiedAccountResp{
 			Result: model.Result{
-				Code:    enums.VERIFIEDACCOUNT_ERROR_CODE,
-				Message: enums.VERIFIEDACCOUNT_ERROR_MESS,
+				Code:    enums.VERIFIED_ACCOUNT_ERROR_CODE,
+				Message: enums.VERIFIED_ACCOUNT_ERROR_MESS,
 			},
 		}, nil
 	}
@@ -195,6 +204,58 @@ func (u *JwtUseCase) VerifiedAccount(ctx context.Context, userName string, code 
 		}, nil
 	}
 	return &model.VerifiedAccountResp{
+		Result: model.Result{
+			Code:    enums.SUCCESS_CODE,
+			Message: enums.SUCCESS_MESS,
+		},
+	}, nil
+}
+func (u *JwtUseCase) ResendOtp(ctx context.Context, email, user_name string) (*model.ResendOtpResp, error) {
+
+	newCode := utils.CodeOPT()
+
+	account, err := u.userRepositoryPort.GetInfomationByUserName(ctx, user_name)
+
+	if err != nil {
+		return &model.ResendOtpResp{
+			Result: model.Result{
+				Code:    enums.DB_ERR_CODE,
+				Message: enums.DB_ERR_MESS,
+			},
+		}, nil
+	}
+	if account == nil {
+		return &model.ResendOtpResp{
+			Result: model.Result{
+				Code:    enums.ACCOUNT_NOT_EXIST_CODE,
+				Message: enums.ACCOUNT_NOT_EXIST_MESS,
+			},
+		}, nil
+	}
+	err = utils.SendEmail(email, int64(newCode))
+	if err != nil {
+		return &model.ResendOtpResp{
+			Result: model.Result{
+				Code:    enums.SEND_EMAIL_CODE_ERROR,
+				Message: enums.SEND_EMAIL_MESS_ERROR,
+			},
+		}, nil
+	}
+	err = u.userRepositoryPort.UpdateAccount(ctx, &model.Account{
+		ID:         account.ID,
+		IsVerified: enums.IS_VERIFIED,
+		Email:      email,
+		OTPCode:    int64(newCode),
+	})
+	if err != nil {
+		return &model.ResendOtpResp{
+			Result: model.Result{
+				Code:    enums.DB_ERR_CODE,
+				Message: enums.DB_ERR_MESS,
+			},
+		}, nil
+	}
+	return &model.ResendOtpResp{
 		Result: model.Result{
 			Code:    enums.SUCCESS_CODE,
 			Message: enums.SUCCESS_MESS,

@@ -4,7 +4,6 @@ import (
 	"context"
 	"ecommerce_site/src/adapter/model"
 	"ecommerce_site/src/common/imgbb"
-	"ecommerce_site/src/common/log"
 	"ecommerce_site/src/common/utils"
 	"ecommerce_site/src/core/enums"
 	"ecommerce_site/src/core/ports"
@@ -38,7 +37,6 @@ func (u *UseCaseAccount) CreateAccount(ctx context.Context, req *model.AccountRe
 			},
 		}, nil
 	}
-	log.Infof("email ", checkEmailExits)
 	if checkEmailExits != nil {
 		return &model.AccountRespCreate{
 			Result: model.Result{
