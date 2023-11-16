@@ -25,6 +25,7 @@ func loadUseCase() []fx.Option {
 		//	fx.Provide(usercases.NewUserUseCase),
 		fx.Provide(usecases.NewUseCaseAccount),
 		fx.Provide(usecases.NewJwtUseCase),
+		fx.Provide(usecases.NewProductUseCase),
 	}
 }
 
@@ -41,6 +42,7 @@ func loadEngine() []fx.Option {
 		fx.Provide(controllers.NewBaseController),
 		fx.Provide(controllers.NewControllerAccount),
 		fx.Provide(controllers.NewAuthController),
+		fx.Provide(controllers.NewControllerProduct),
 	}
 }
 func loadAdapter() []fx.Option {
@@ -49,5 +51,7 @@ func loadAdapter() []fx.Option {
 		fx.Provide(postgresql.NewTransaction),
 		fx.Provide(postgresql.NewAccountRepository),
 		fx.Provide(postgresql.NewRoleRepository),
+		fx.Provide(postgresql.NewUploadFileRepository),
+		fx.Provide(postgresql.NewProductRepository),
 	}
 }

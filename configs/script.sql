@@ -71,11 +71,11 @@ CREATE TABLE products(
     id_type_product BIGINT
 );
 
-CREATE TABLE image_storage(
+CREATE TABLE image_storages(
     id BIGINT PRIMARY KEY,
     url VARCHAR(255),
     id_user BIGINT,
-    id_prduct BIGINT
+    id_product BIGINT
 )
 
 CREATE TABLE orders(

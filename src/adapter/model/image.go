@@ -7,6 +7,7 @@ type ImageStorage struct {
 	IDUser    int64  `json:"id_user"`
 	IDProduct int64  `json:"id_product"`
 }
+
 type Data struct {
 	URL string `json:"url"`
 }

@@ -20,7 +20,7 @@ func NewApiRouter(
 	controllersAccount *controllers.AccountController,
 	controllerAuth *controllers.AuthController,
 	middleware *middleware.MiddleWare,
-
+	controllerProduct *controllers.ControllerProduct,
 	cf *configs.Configs,
 ) *ApiRouter {
 	engine := gin.New()
@@ -42,6 +42,7 @@ func NewApiRouter(
 	r.POST("/login", controllerAuth.Login)
 	r.POST("/verified", controllerAuth.VerifiedAccount)
 	r.POST("/resendOtp", controllerAuth.ResendOtp)
+	r.POST("/product/add", controllerProduct.AddProduct)
 	// userGroup.Use(middleware.Authenticate())
 	// {
 
