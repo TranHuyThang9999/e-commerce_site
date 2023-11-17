@@ -137,6 +137,7 @@ func (u *ProductUseCase) GetListProductUserSeller(ctx context.Context, req *dto.
 
 	var limit int = 0
 	var productsListSeller []*model.ProductImgaesRespFindByForm // list sp
+	imagesMap := make(map[int64][]*model.ImageStorage)          // map[IDProduct]ListImage
 
 	account, err := u.user.GetInfomationByUserName(ctx, req.UserName)
 	if err != nil {
@@ -193,7 +194,17 @@ func (u *ProductUseCase) GetListProductUserSeller(ctx context.Context, req *dto.
 		}, nil
 	}
 
-	imagesBydescribe, err := u.file.GetAllImageForUserNameByIdProduct(ctx, req.ID) //id product
+	// imagesBydescribe, err := u.file.GetAllImageForUserNameByIdProduct(ctx, req.ID) //id product
+	// if err != nil {
+	// 	return &model.ProductListRespSeller{
+	// 		Result: model.Result{
+	// 			Code:    enums.DB_ERR_CODE,
+	// 			Message: enums.DB_ERR_MESS,
+	// 		},
+	// 	}, nil
+	// }
+
+	images, err := u.file.FindAllImages(ctx)
 	if err != nil {
 		return &model.ProductListRespSeller{
 			Result: model.Result{
@@ -202,11 +213,15 @@ func (u *ProductUseCase) GetListProductUserSeller(ctx context.Context, req *dto.
 			},
 		}, nil
 	}
+	for _, image := range images {
+		imagesMap[image.IDProduct] = append(imagesMap[image.IDProduct], image)
 
+	}
 	for _, v := range productsById {
 		productsListSeller = append(productsListSeller, &model.ProductImgaesRespFindByForm{
 			Products: v,
-			Images:   imagesBydescribe,
+
+			Images: imagesMap[v.ID],
 		})
 	}
 

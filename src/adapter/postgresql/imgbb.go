@@ -46,3 +46,8 @@ func (u *CollectionUploadFile) FindBymultipleId(ctx context.Context, ids []int64
 
 	return desImageProduct, result.Error
 }
+func (u *CollectionUploadFile) FindAllImages(ctx context.Context) ([]*model.ImageStorage, error) {
+	var desImageProduct []*model.ImageStorage
+	result := u.collection.Find(&desImageProduct)
+	return desImageProduct, result.Error
+}
