@@ -51,6 +51,9 @@ const (
 
 	ACCOUNT_OR_PASSWORD_WRONG_CODE = 30
 	ACCOUNT_OR_PASSWORD_WRONG_MESS = "Wrong account or password"
+
+	PRODUCT_EMPTY_CODE = 32
+	PRODUCT_EMPTY_MESS = "product empty"
 )
 
 const (

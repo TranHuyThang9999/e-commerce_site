@@ -39,7 +39,7 @@ type ProductRespCreate struct {
 
 type ProductReqFindByForm struct {
 	ID            int64   `form:"id"`
-	IDUser        int64   `json:"id_user"`
+	IdUser        int64   `json:"id_user" form:"id_user"`
 	NameProduct   string  `form:"name_product"`
 	Quantity      int     `form:"quantity"`
 	SellStatus    int     `form:"sell_status"`
@@ -64,12 +64,18 @@ type ProductRespFindByForm struct {
 	UpdatedAt     int     `json:"updated_at"`
 	Describe      string  `json:"describe"`
 	IDTypeProduct int64   `json:"id_type_product"`
+	ListIdImage   string  `json:"list_id_image"`
 }
 
-type ProductsRespFindByForm struct {
-	Result   Result                   `json:"result"`
-	Total    int                      `json:"total"`
-	Products []*ProductRespFindByForm `json:"products"`
+type ProductImgaesRespFindByForm struct {
+	Products *ProductRespFindByForm `json:"products"`
+	Images   []*ImageStorage        `json:"images"`
+}
+
+type ProductListRespSeller struct {
+	Result                      Result                         `json:"result"`
+	Total                       int                            `json:"total"`
+	ProductImgaesRespFindByForm []*ProductImgaesRespFindByForm `json:"product_imgaes_resp_find_by_form"`
 }
 
 // ProductType struct đại diện cho loại sản phẩm

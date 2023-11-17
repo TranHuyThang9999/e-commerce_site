@@ -26,7 +26,7 @@ func (u *CollectionUploadFile) UploadImageSingleFile(ctx context.Context, tx *go
 }
 func (u *CollectionUploadFile) GetAllImageForUserNameByIdProduct(ctx context.Context, idProduct int64) ([]*model.ImageStorage, error) {
 	var desImageProduct []*model.ImageStorage
-	result := u.collection.Where("id_prduct = ?", idProduct).Find(&desImageProduct)
+	result := u.collection.Where("id_product = ?", idProduct).Find(&desImageProduct)
 	return desImageProduct, result.Error
 }
 func (u *CollectionUploadFile) UpdateImageByIdProduct(ctx context.Context, req *model.ImageStorage) error {
@@ -39,4 +39,10 @@ func (u *CollectionUploadFile) UploadImageMutileFile(ctx context.Context, tx *go
 func (u *CollectionUploadFile) DeleteImageById(ctx context.Context, IdImage int64) error {
 	result := u.collection.Where("id_image = ?", IdImage).Delete(&model.ImageStorage{})
 	return result.Error
+}
+func (u *CollectionUploadFile) FindBymultipleId(ctx context.Context, ids []int64) ([]*model.ImageStorage, error) {
+	var desImageProduct []*model.ImageStorage
+	result := u.collection.Where("id IN (?)", ids).Find(&desImageProduct)
+
+	return desImageProduct, result.Error
 }

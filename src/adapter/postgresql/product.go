@@ -23,11 +23,11 @@ func (u *ProductCollection) AddProduct(ctx context.Context, tx *gorm.DB, req *mo
 	result := tx.Create(req)
 	return result.Error
 }
-func (u *ProductCollection) FindByForm(ctx context.Context, req *model.ProductReqFindByForm, limit, offset int) ([]*model.ProductRespFindByForm, error) {
+func (u *ProductCollection) FindByForm(ctx context.Context, req *model.ProductReqFindByForm, offset, limit int) ([]*model.ProductRespFindByForm, error) {
 	var products []*model.ProductRespFindByForm
 	result := u.collection.Where(&model.Product{
 		ID:            req.ID,
-		IDUser:        req.IDTypeProduct,
+		IDUser:        req.IdUser,
 		NameProduct:   req.Describe,
 		Quantity:      req.Quantity,
 		SellStatus:    req.SellStatus,
@@ -38,6 +38,6 @@ func (u *ProductCollection) FindByForm(ctx context.Context, req *model.ProductRe
 		UpdatedAt:     req.UpdatedAt,
 		Describe:      req.Describe,
 		IDTypeProduct: req.IDTypeProduct,
-	}).Offset(offset).Limit(limit).Order("created_at desc").Find(&products)
+	}).Offset(offset).Limit(limit).Order("created_at desc").Model(&model.Product{}).Find(&products)
 	return products, result.Error
 }

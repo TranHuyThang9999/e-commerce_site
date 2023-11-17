@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"ecommerce_site/src/adapter/model"
+	"ecommerce_site/src/common/dto"
 	"ecommerce_site/src/common/imgbb"
 	"ecommerce_site/src/core/usecases"
 	"net/http"
@@ -10,6 +11,7 @@ import (
 )
 
 type ControllerProduct struct {
+	*baseController
 	ctl *usecases.ProductUseCase
 }
 
@@ -40,4 +42,24 @@ func (t *ControllerProduct) AddProduct(c *gin.Context) {
 		return
 	}
 	c.JSON(200, resp)
+}
+func (t *ControllerProduct) GetListProduct(c *gin.Context) {
+
+	var req dto.ProductReqFindByForm
+
+	if err := c.ShouldBind(&req); err != nil {
+		c.JSON(http.StatusBadRequest, err)
+		return
+	}
+	if err := t.validateRequest(&req); err != nil {
+		c.JSON(http.StatusBadRequest, err.Error())
+		return
+	}
+	resp, err := t.ctl.GetListProductUserSeller(c, &req)
+	if err != nil {
+		c.JSON(200, err)
+		return
+	}
+	c.JSON(200, resp)
+
 }

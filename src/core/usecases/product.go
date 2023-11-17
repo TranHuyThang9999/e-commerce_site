@@ -4,6 +4,7 @@ import (
 	"context"
 	"ecommerce_site/src/adapter/mapper"
 	"ecommerce_site/src/adapter/model"
+	"ecommerce_site/src/common/dto"
 	"ecommerce_site/src/common/imgbb"
 	"ecommerce_site/src/common/utils"
 	"ecommerce_site/src/core/enums"
@@ -130,4 +131,91 @@ func (u *ProductUseCase) AddProduct(ctx context.Context, req *model.ProductReqCr
 		},
 	}, nil
 
+}
+
+func (u *ProductUseCase) GetListProductUserSeller(ctx context.Context, req *dto.ProductReqFindByForm) (*model.ProductListRespSeller, error) {
+
+	var limit int = 0
+	var productsListSeller []*model.ProductImgaesRespFindByForm // list sp
+
+	account, err := u.user.GetInfomationByUserName(ctx, req.UserName)
+	if err != nil {
+		return &model.ProductListRespSeller{
+			Result: model.Result{
+				Code:    enums.DB_ERR_CODE,
+				Message: enums.DB_ERR_MESS,
+			},
+		}, nil
+	}
+	if account == nil {
+		return &model.ProductListRespSeller{
+			Result: model.Result{
+				Code:    enums.ACCOUNT_NOT_EXIST_CODE,
+				Message: enums.ACCOUNT_NOT_EXIST_MESS,
+			},
+		}, nil
+	}
+	if req.Limit == 0 {
+		limit = 10
+	} else {
+		limit = req.Limit
+	}
+	productsById, err := u.product.FindByForm(ctx, &model.ProductReqFindByForm{
+		ID:            req.ID,
+		IdUser:        account.ID,
+		NameProduct:   req.Describe,
+		Quantity:      req.Quantity,
+		SellStatus:    req.SellStatus,
+		Price:         req.Price,
+		Discount:      req.Discount,
+		Manufacturer:  req.Manufacturer,
+		CreatedAt:     req.CreatedAt,
+		UpdatedAt:     req.UpdatedAt,
+		Describe:      req.Describe,
+		IDTypeProduct: req.IDTypeProduct,
+	}, req.Offset, limit)
+
+	if err != nil {
+		return &model.ProductListRespSeller{
+			Result: model.Result{
+				Code:    enums.DB_ERR_CODE,
+				Message: enums.DB_ERR_MESS,
+			},
+		}, nil
+	}
+	if len(productsById) == 0 {
+		return &model.ProductListRespSeller{
+			Total: 0,
+			Result: model.Result{
+				Code:    enums.PRODUCT_EMPTY_CODE,
+				Message: enums.PRODUCT_EMPTY_MESS,
+			},
+		}, nil
+	}
+
+	imagesBydescribe, err := u.file.GetAllImageForUserNameByIdProduct(ctx, req.ID) //id product
+	if err != nil {
+		return &model.ProductListRespSeller{
+			Result: model.Result{
+				Code:    enums.DB_ERR_CODE,
+				Message: enums.DB_ERR_MESS,
+			},
+		}, nil
+	}
+
+	for _, v := range productsById {
+		productsListSeller = append(productsListSeller, &model.ProductImgaesRespFindByForm{
+			Products: v,
+			Images:   imagesBydescribe,
+		})
+	}
+
+	return &model.ProductListRespSeller{
+		Result: model.Result{
+			Code:    enums.SUCCESS_CODE,
+			Message: enums.SUCCESS_MESS,
+		},
+		Total:                       len(productsById),
+		ProductImgaesRespFindByForm: productsListSeller,
+	}, nil
 }

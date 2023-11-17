@@ -9,5 +9,5 @@ import (
 
 type RepositoryProducts interface {
 	AddProduct(ctx context.Context, tx *gorm.DB, req *model.Product) error
-	FindByForm(ctx context.Context, req *model.ProductReqFindByForm, limit, offset int) ([]*model.ProductRespFindByForm, error)
+	FindByForm(ctx context.Context, req *model.ProductReqFindByForm, offset, limit int) ([]*model.ProductRespFindByForm, error)
 }

@@ -13,4 +13,5 @@ type RepositoryUploadImage interface {
 	UpdateImageByIdProduct(ctx context.Context, req *model.ImageStorage) error // chua dung
 	UploadImageMutileFile(ctx context.Context, tx *gorm.DB, req []*model.ImageStorage) error
 	DeleteImageById(ctx context.Context, IdImage int64) error
+	FindBymultipleId(ctx context.Context, ids []int64) ([]*model.ImageStorage, error)
 }
