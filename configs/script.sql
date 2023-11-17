@@ -24,13 +24,6 @@ CREATE TABLE accounts (
 COMMENT ON COLUMN accounts.id_role IS 'ID của vai trò';
 
 
-SELECT *FROM accounts;
-DELETE FROM accounts;
-
-SELECT *FROM roles;
-DELETE FROM roles;
-SELECT * FROM "accounts" ORDER BY "accounts"."id" LIMIT 1
-
 CREATE Table roles(
     id BIGINT PRIMARY KEY,            -- ID chính làm khóa chính
     admin INT,
@@ -51,12 +44,9 @@ CREATE TABLE products(
     created_at INT, -- Ngày tạo sản phẩm
     updated_at INT, -- Ngày cập nhật sản phẩm
     describe VARCHAR(510),
-    id_type_product BIGINT
+    id_type_product BIGINT,
+    list_id_image  VARCHAR(255)
 );
-
-SELECT *FROM products;
-
-DELETE FROM products;
 
 CREATE TABLE image_storages(
     id BIGINT PRIMARY KEY,
@@ -75,7 +65,6 @@ CREATE TABLE orders(
     created_at INT,                   -- Ngày tạo
     updated_at INT                    -- Ngày cập nhật
 );
-
 
 
 CREATE TABLE shipping_address (
@@ -104,10 +93,18 @@ CREATE TABLE carts(
 
 CREATE TABLE product_type( ---máy tính , điện thoại , quần áo , mĩ phẩm , bàn phím , ram laptop , ....
     id BIGINT PRIMARY KEY,
+);
 
-)
 
+SELECT *FROM accounts;
+DELETE FROM accounts;
 
-INSERT INTO "accounts"
- ("id_role","first_name","last_name","age","address","gender","email","phone_number","user_name","password","otp_code","otp_expiry","is_verified","store_name","notes","created_at","updated_at","avatar","id") VALUES
-  (435221022908928,'Nguyen Van ','A',12,'Ha Noi',1,'tranhuythang9999@gmail.com','1234533','thang','$2a$10$ZO4TKXifcAK.Xjkpm/QJrOc0yL91weL/qX0PR0Jmi/G4nSsIJyqlG',909184,0,17,'Good quan','Good',1700082126,1700082126,'https://i.ibb.co/103MPBm/quan.jpg',435221022908672) RETURNING "id"
+SELECT *FROM roles;
+DELETE FROM roles;
+SELECT * FROM "accounts" ORDER BY "accounts"."id" LIMIT 1
+
+SELECT *FROM products;
+SELECT *FROM image_storages;
+
+DELETE FROM image_storages;
+DELETE FROM products;
