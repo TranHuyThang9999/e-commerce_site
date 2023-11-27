@@ -83,7 +83,8 @@ func (u *JwtUseCase) generateToken(id int64, userName string, idRole int64) (*mo
 		log.Error(err, "Error when generating access token")
 		return nil, err
 	}
-	refreshToken, err := u.encrypt(u.config.RefreshSecret, userClaim(u.expRefreshToken))
+	refreshToken, err := u.encrypt(u.config.RefreshSecret, userClaim(u.expAccessToken))
+
 	if err != nil {
 		log.Error(err, "Error when generating refresh token")
 		return nil, err

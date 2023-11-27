@@ -30,14 +30,15 @@ func (u *CollectionUploadFile) GetAllImageForUserNameByIdProduct(ctx context.Con
 	return desImageProduct, result.Error
 }
 func (u *CollectionUploadFile) UpdateImageByIdProduct(ctx context.Context, req *model.ImageStorage) error {
-	return nil
+	result := u.collection.Model(&model.ImageStorage{}).Updates(req)
+	return result.Error
 }
 func (u *CollectionUploadFile) UploadImageMutileFile(ctx context.Context, tx *gorm.DB, req []*model.ImageStorage) error {
 	result := tx.Create(req)
 	return result.Error
 }
 func (u *CollectionUploadFile) DeleteImageById(ctx context.Context, IdImage int64) error {
-	result := u.collection.Where("id_image = ?", IdImage).Delete(&model.ImageStorage{})
+	result := u.collection.Where("id = ?", IdImage).Delete(&model.ImageStorage{})
 	return result.Error
 }
 func (u *CollectionUploadFile) FindBymultipleId(ctx context.Context, ids []int64) ([]*model.ImageStorage, error) {

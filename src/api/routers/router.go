@@ -4,12 +4,9 @@ import (
 	"ecommerce_site/src/api/controllers"
 	"ecommerce_site/src/api/middleware"
 	"ecommerce_site/src/configs"
-	"fmt"
 
 	"github.com/gin-gonic/gin"
 	cors "github.com/rs/cors/wrapper/gin"
-	"go.elastic.co/apm/module/apmgin/v2"
-	"go.elastic.co/apm/v2"
 )
 
 type ApiRouter struct {
@@ -25,12 +22,8 @@ func NewApiRouter(
 ) *ApiRouter {
 	engine := gin.New()
 	gin.DisableConsoleColor()
-	tracer, err := apm.NewTracer("cms-backend", "v0.0.1")
-	if err != nil {
-		fmt.Errorf("error", err)
-	}
+
 	engine.Use(gin.Logger())
-	engine.Use(apmgin.Middleware(engine, apmgin.WithTracer(tracer)))
 	engine.Use(cors.AllowAll())
 
 	r := engine.RouterGroup.Group("/sell")
@@ -42,12 +35,13 @@ func NewApiRouter(
 	r.POST("/login", controllerAuth.Login)
 	r.POST("/verified", controllerAuth.VerifiedAccount)
 	r.POST("/resendOtp", controllerAuth.ResendOtp)
-	r.POST("/product/add", controllerProduct.AddProduct)
-	r.GET("/product/list", controllerProduct.GetListProduct)
-	// userGroup.Use(middleware.Authenticate())
-	// {
 
-	// }
+	userGroup := r.Group("/user")
+	userGroup.Use(middleware.Authenticate())
+	{
+		userGroup.POST("/product/add", controllerProduct.AddProduct)
+		userGroup.GET("/product/list", controllerProduct.GetListProduct)
+	}
 
 	return &ApiRouter{
 		Engine: engine,

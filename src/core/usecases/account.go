@@ -83,24 +83,24 @@ func (u *UseCaseAccount) CreateAccount(ctx context.Context, req *model.AccountRe
 		}, nil
 	}
 
-	checkStore, err := u.account.GetInfomationByStoreName(ctx, req.StoreName)
-	if err != nil {
-		return &model.AccountRespCreate{
-			Id: 0,
-			Result: model.Result{
-				Code:    enums.DB_ERR_CODE,
-				Message: enums.DB_ERR_MESS,
-			},
-		}, nil
-	}
-	if checkStore != nil {
-		return &model.AccountRespCreate{
-			Result: model.Result{
-				Code:    enums.STORE_NAME_EXITS_CODE,
-				Message: enums.STORE_NAME_EXITS_MESS,
-			},
-		}, nil
-	}
+	// checkStore, err := u.account.GetInfomationByStoreName(ctx, req.StoreName)
+	// if err != nil {
+	// 	return &model.AccountRespCreate{
+	// 		Id: 0,
+	// 		Result: model.Result{
+	// 			Code:    enums.DB_ERR_CODE,
+	// 			Message: enums.DB_ERR_MESS,
+	// 		},
+	// 	}, nil
+	// }
+	// if checkStore != nil {
+	// 	return &model.AccountRespCreate{
+	// 		Result: model.Result{
+	// 			Code:    enums.STORE_NAME_EXITS_CODE,
+	// 			Message: enums.STORE_NAME_EXITS_MESS,
+	// 		},
+	// 	}, nil
+	// }
 
 	idUser := utils.GenerateUniqueUUid()
 	idRole := utils.GenerateUniqueUUid()
@@ -167,10 +167,11 @@ func (u *UseCaseAccount) CreateAccount(ctx context.Context, req *model.AccountRe
 		OTPExpiry:   0,
 		IsVerified:  enums.NOT_VERIFIED,
 		Notes:       req.Notes,
-		StoreName:   req.StoreName,
+		// StoreName:   req.StoreName,
 		CreatedAt:   int(utils.GetCurrentTimestamp()),
 		UpdatedAt:   int(utils.GetCurrentTimestamp()),
 		Avatar:      utlAvatar,
+		DateOfBirth: req.DateOfBirth,
 	})
 	if err != nil {
 		tx.Rollback()

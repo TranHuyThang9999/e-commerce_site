@@ -69,7 +69,7 @@ type ProductRespFindByForm struct {
 
 type ProductImgaesRespFindByForm struct {
 	Products *ProductRespFindByForm `json:"products"`
-	Images   []*ImageStorage        `json:"images"`
+	//Images   []*ImageStorage        `json:"images"`
 }
 
 type ProductListRespSeller struct {

@@ -23,6 +23,7 @@ type Account struct {
 	CreatedAt   int    `json:"created_at"`
 	UpdatedAt   int    `json:"updated_at"`
 	Avatar      string `json:"avatar"`
+	DateOfBirth int    `json:"date_of_birth"`
 }
 
 type AccountReqCreate struct {
@@ -35,9 +36,9 @@ type AccountReqCreate struct {
 	PhoneNumber string                `form:"phone_number" validate:"required"`
 	UserName    string                `form:"user_name" validate:"required"`
 	Password    string                `form:"password" validate:"required"`
-	StoreName   string                `form:"store_name" validate:"required"`
-	Notes       string                `form:"notes" validate:"required"`
+	Notes       string                `form:"notes"`
 	File        *multipart.FileHeader `form:"file"`
+	DateOfBirth int                   `form:"date_of_birth"`
 }
 
 type AccountRespCreate struct {
@@ -73,6 +74,7 @@ type AccountReqFindByForm struct {
 	StoreName   string `form:"store_name"`
 	CreatedAt   int    `form:"created_at"`
 	UpdatedAt   int    `form:"updated_at"`
+	DateOfBirth int    `form:"date_of_birth"`
 }
 type AccountRespFindByForm struct {
 	Result   Result     `json:"result"`

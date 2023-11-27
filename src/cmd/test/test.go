@@ -2,9 +2,20 @@ package main
 
 import (
 	"fmt"
-	"strings"
+	"math/rand"
+	"time"
 )
 
 func main() {
-	fmt.Println(strings.ToUpper("VerifiedAccount_Success_mess"))
+	random := rand.New(rand.NewSource(time.Now().UnixNano()))
+	array := make([]int, random.Intn(100-10)+100)
+	for i := range array {
+		array[i] = random.Intn(100)
+		fmt.Println(array[i])
+	}
+
+}
+
+func Sum(a, b int64) int64 {
+	return a - b
 }

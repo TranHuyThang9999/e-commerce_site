@@ -4,6 +4,6 @@
     "port":"8080",
     "access_secret":"secretAAAAAAAAAAAaaaaaaaaassssdsv",
     "expire_access":"24h",
-    "refresh_secret":"ssavcdaecrvds434et",
+    "refresh_secret":"secretAAAAAAAAAAAaaaaaaaaassssdsv",
     "expire_refresh":"168h"
 }

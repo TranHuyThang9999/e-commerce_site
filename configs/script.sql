@@ -15,11 +15,12 @@ CREATE TABLE accounts (
     otp_code BIGINT, -- Đặt trường OTP làm kiểu VARCHAR với chiều dài 10 (độ dài mã OTP có thể thay đổi tùy thuộc vào yêu cầu của bạn)
     otp_expiry int, -- Nếu bạn muốn theo dõi thời gian hết hạn của OTP 
     is_verified INT,
-    store_name VARCHAR(255) UNIQUE,
+    store_name VARCHAR(255),
     Notes VARCHAR(255),
     created_at  INT,
 	updated_at INT,
-    avatar VARCHAR(255)
+    avatar VARCHAR(255),
+    date_of_birth int
 );
 COMMENT ON COLUMN accounts.id_role IS 'ID của vai trò';
 
@@ -108,3 +109,11 @@ SELECT *FROM image_storages;
 
 DELETE FROM image_storages;
 DELETE FROM products;
+
+
+INSERT INTO "accounts" ("id_role","first_name","last_name","age","address","gender","email","phone_number","user_name","password","otp_code","otp_expiry","is_verified","store_name","notes","created_at","updated_at","avatar","id") VALUES
+ (435262868457216,'Nguyen Van F','Dee',233,'Nam dinhee',39,'tranhuythang9949@gmail.comeeee','99999999994eeee55','thangth5','$2a$10$pwwFBGoYIs49iQi7gTV.iuujdWwdsPZCBHh2DU.CiwpBcRQfVgFZ2',457472,0,17,'','badddd',1700245583,1700245583,'',435262868456960) RETURNING "id"
+
+
+
+ SELECT * FROM "accounts" WHERE email = 'tranhuythang99s49@gmail.comeeee' ORDER BY "accounts"."id" LIMIT 1;
