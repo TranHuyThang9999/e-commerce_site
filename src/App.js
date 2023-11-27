@@ -1,23 +1,12 @@
-import CheckBox from "./components/FIndCheck/CheckBox";
-import CheckRadion from "./components/FIndCheck/CheckRadion";
-import FindCheck from "./components/FIndCheck/FindCheck";
-import Selected from "./components/FIndCheck/Selected";
-import AppChat from "./components/chats/Messages/message";
-import AddImage from "./components/handlerImages/addImage";
-import HandlerImages from "./components/handlerImages/handlerImages";
+import SingUp from "./components/pkgs/SignUp/SingUp";
+import VerificationCode from "./components/pkgs/VerificationCode/VerificationCode";
 
 
 function App() {
   return (
     <div>
-      {/* <HistoryChat/> */}
-      {/* <Message/> */}
-      {/* <HandlerImages/> */}
-      {/* <AddImage/> */}
-      <FindCheck/>
-      <CheckBox/>
-      {/* <Selected/> */}
-      {/* <CheckRadion/> */}
+    {/* <SingUp/> */}
+    <VerificationCode/>
     </div>
   );
 }
