@@ -16,4 +16,5 @@ type RepositoryUploadImage interface {
 	FindBymultipleId(ctx context.Context, ids []int64) ([]*model.ImageStorage, error)
 	FindAllImages(ctx context.Context) ([]*model.ImageStorage, error)
 	GetFileById(ctx context.Context, id int64) (*model.ImageStorage, error)
+	DeleteImagesByIdProduct(ctx context.Context, tx *gorm.DB, idProduct int64) error
 }

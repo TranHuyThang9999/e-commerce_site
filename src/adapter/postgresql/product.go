@@ -41,3 +41,7 @@ func (u *ProductCollection) FindByForm(ctx context.Context, req *model.ProductRe
 	}).Offset(offset).Limit(limit).Order("created_at desc").Model(&model.Product{}).Find(&products)
 	return products, result.Error
 }
+func (u *ProductCollection) DeleteProductById(ctx context.Context, tx *gorm.DB, id int64) error {
+	result := tx.Where("id = ?", id).Delete(&model.Product{})
+	return result.Error
+}

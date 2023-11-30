@@ -38,8 +38,8 @@ func (u *CollectionUploadFile) UploadImageMutileFile(ctx context.Context, tx *go
 	result := tx.Create(req)
 	return result.Error
 }
-func (u *CollectionUploadFile) DeleteImageById(ctx context.Context, IdImage int64) error {
-	result := u.collection.Where("id = ?", IdImage).Delete(&model.ImageStorage{})
+func (u *CollectionUploadFile) DeleteImageById(ctx context.Context, idImage int64) error {
+	result := u.collection.Where("id = ?", idImage).Delete(&model.ImageStorage{})
 	return result.Error
 }
 func (u *CollectionUploadFile) FindBymultipleId(ctx context.Context, ids []int64) ([]*model.ImageStorage, error) {
@@ -60,4 +60,8 @@ func (u *CollectionUploadFile) GetFileById(ctx context.Context, id int64) (*mode
 		return nil, nil
 	}
 	return desImageProduct, result.Error
+}
+func (u *CollectionUploadFile) DeleteImagesByIdProduct(ctx context.Context, tx *gorm.DB, idProduct int64) error {
+	result := tx.Where("id_product = ?", idProduct).Delete(&model.ImageStorage{})
+	return result.Error
 }

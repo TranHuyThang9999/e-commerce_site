@@ -63,3 +63,14 @@ func (t *ControllerProduct) GetListProduct(c *gin.Context) {
 	c.JSON(200, resp)
 
 }
+func (t *ControllerProduct) DeleteProductById(c *gin.Context) {
+
+	id := c.Query("id")
+
+	resp, err := t.ctl.DeleteProductById(c, id)
+	if err != nil {
+		c.JSON(200, err)
+		return
+	}
+	c.JSON(200, resp)
+}

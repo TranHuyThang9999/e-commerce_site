@@ -9,6 +9,7 @@ import (
 	"ecommerce_site/src/common/utils"
 	"ecommerce_site/src/core/enums"
 	"ecommerce_site/src/core/ports"
+	"strconv"
 )
 
 type ProductUseCase struct {
@@ -216,5 +217,55 @@ func (u *ProductUseCase) GetListProductUserSeller(ctx context.Context, req *dto.
 		},
 		Total:                       len(productsById),
 		ProductImgaesRespFindByForm: productsListSeller,
+	}, nil
+}
+func (u *ProductUseCase) DeleteProductById(ctx context.Context, idProduct string) (*model.ProductDeleteByIdResp, error) {
+
+	idNumber, err := strconv.ParseInt(idProduct, 10, 64)
+	if err != nil {
+		return &model.ProductDeleteByIdResp{
+			Result: model.Result{
+				Code:    enums.CONVERT_TO_NUMBER_CODE,
+				Message: enums.CONVERT_TO_NUMBER_MESS,
+			},
+		}, nil
+	}
+
+	tx, err := u.trans.BeginTransaction(ctx)
+	if err != nil {
+		return &model.ProductDeleteByIdResp{
+			Result: model.Result{
+				Code:    enums.TRANSACTION_INVALID_CODE,
+				Message: enums.TRANSACTION_INVALID_MESS,
+			},
+		}, err
+	}
+
+	err = u.product.DeleteProductById(ctx, tx, idNumber)
+	if err != nil {
+		tx.Rollback()
+		return &model.ProductDeleteByIdResp{
+			Result: model.Result{
+				Code:    enums.DB_ERR_CODE,
+				Message: enums.DB_ERR_MESS,
+			},
+		}, nil
+	}
+	err = u.file.DeleteImagesByIdProduct(ctx, tx, idNumber)
+	if err != nil {
+		tx.Rollback()
+		return &model.ProductDeleteByIdResp{
+			Result: model.Result{
+				Code:    enums.DB_ERR_CODE,
+				Message: enums.DB_ERR_MESS,
+			},
+		}, nil
+	}
+	tx.Commit()
+	return &model.ProductDeleteByIdResp{
+		Result: model.Result{
+			Code:    enums.SUCCESS_CODE,
+			Message: enums.SUCCESS_MESS,
+		},
 	}, nil
 }

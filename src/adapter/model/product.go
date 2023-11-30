@@ -54,17 +54,18 @@ type ProductReqFindByForm struct {
 }
 
 type ProductRespFindByForm struct {
-	ID            int64   `json:"id"`
-	NameProduct   string  `json:"name_product"`
-	Quantity      int     `json:"quantity"`
-	SellStatus    int     `json:"sell_status"`
-	Price         float64 `json:"price"`
-	Discount      float64 `json:"discount"`
-	Manufacturer  string  `json:"manufacturer"`
-	CreatedAt     int     `json:"created_at"`
-	UpdatedAt     int     `json:"updated_at"`
-	Describe      string  `json:"describe"`
-	IDTypeProduct int64   `json:"id_type_product"`
+	ID             int64   `json:"id"`
+	NameProduct    string  `json:"name_product"`
+	Quantity       int     `json:"quantity"`
+	SellStatus     int     `json:"sell_status"`
+	Price          float64 `json:"price"`
+	Discount       float64 `json:"discount"`
+	Manufacturer   string  `json:"manufacturer"`
+	CreatedAt      int     `json:"created_at"`
+	UpdatedAt      int     `json:"updated_at"`
+	Describe       string  `json:"describe"`
+	IDTypeProduct  int64   `json:"id_type_product"`
+	NumberOfPhotos int     `json:"number_of_photos"`
 	// ListIdImage   string  `json:"list_id_image"`
 }
 
@@ -82,4 +83,7 @@ type ProductListRespSeller struct {
 // ProductType struct đại diện cho loại sản phẩm
 type ProductType struct {
 	ID int64 `json:"id"`
+}
+type ProductDeleteByIdResp struct {
+	Result Result `json:"result"`
 }
