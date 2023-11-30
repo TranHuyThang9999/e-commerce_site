@@ -3,7 +3,9 @@ package imgbb
 import (
 	"bytes"
 	"ecommerce_site/src/adapter/model"
+	"ecommerce_site/src/configs"
 	"fmt"
+	"strings"
 
 	"encoding/json"
 	"io"
@@ -17,7 +19,9 @@ import (
 func ProcessImages(fileHeaders []*multipart.FileHeader) ([]model.Data, error) {
 	var result []model.Data
 
-	url := "https://api.imgbb.com/1/upload?key=35ab53548bf387fc865eded79efa0a19"
+	//	url := "https://api.imgbb.com/1/upload?key=35ab53548bf387fc865eded79efa0a19"
+	url := strings.TrimSpace(strings.Trim(configs.Get().UrlImgbb, " "))
+
 	method := "POST"
 
 	for _, fileHeader := range fileHeaders {
@@ -83,7 +87,9 @@ func ProcessImages(fileHeaders []*multipart.FileHeader) ([]model.Data, error) {
 func ProcessImageSign(fileHeader *multipart.FileHeader) (model.Data, error) {
 	var result model.Data
 
-	url := "https://api.imgbb.com/1/upload?key=35ab53548bf387fc865eded79efa0a19"
+	//url := "https://api.imgbb.com/1/upload?key=35ab53548bf387fc865eded79efa0a19"
+	url := strings.TrimSpace(strings.Trim(configs.Get().UrlImgbb, " "))
+
 	method := "POST"
 
 	file, err := fileHeader.Open()

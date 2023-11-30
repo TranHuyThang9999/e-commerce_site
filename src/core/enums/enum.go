@@ -54,6 +54,9 @@ const (
 
 	PRODUCT_EMPTY_CODE = 32
 	PRODUCT_EMPTY_MESS = "product empty"
+
+	IMAGE_NOT_FOUND_CODE = 34
+	IMAGE_NOT_FOUND_MESS = "not found image"
 )
 
 const (

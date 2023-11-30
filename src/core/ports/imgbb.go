@@ -15,4 +15,5 @@ type RepositoryUploadImage interface {
 	DeleteImageById(ctx context.Context, IdImage int64) error
 	FindBymultipleId(ctx context.Context, ids []int64) ([]*model.ImageStorage, error)
 	FindAllImages(ctx context.Context) ([]*model.ImageStorage, error)
+	GetFileById(ctx context.Context, id int64) (*model.ImageStorage, error)
 }

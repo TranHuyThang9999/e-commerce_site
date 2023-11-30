@@ -18,6 +18,7 @@ func NewApiRouter(
 	controllerAuth *controllers.AuthController,
 	middleware *middleware.MiddleWare,
 	controllerProduct *controllers.ControllerProduct,
+	controllerImage *controllers.FileController,
 	cf *configs.Configs,
 ) *ApiRouter {
 	engine := gin.New()
@@ -41,6 +42,7 @@ func NewApiRouter(
 	{
 		userGroup.POST("/product/add", controllerProduct.AddProduct)
 		userGroup.GET("/product/list", controllerProduct.GetListProduct)
+		userGroup.DELETE("/product/:id", controllerImage.DeleteImageById)
 	}
 
 	return &ApiRouter{

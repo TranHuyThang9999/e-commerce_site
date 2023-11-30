@@ -1,21 +1,20 @@
 package main
 
 import (
-	"fmt"
-	"math/rand"
-	"time"
+	"ecommerce_site/src/common/log"
+	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	random := rand.New(rand.NewSource(time.Now().UnixNano()))
-	array := make([]int, random.Intn(100-10)+100)
-	for i := range array {
-		array[i] = random.Intn(100)
-		fmt.Println(array[i])
-	}
+	r := gin.Default()
+	r.GET("/ping", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{
+			"message": "pong",
+		})
 
-}
-
-func Sum(a, b int64) int64 {
-	return a - b
+		log.Infof("Req", c.GetInt64("k"))
+	})
+	r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
 }

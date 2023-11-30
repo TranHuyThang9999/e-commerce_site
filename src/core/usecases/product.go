@@ -2,7 +2,6 @@ package usecases
 
 import (
 	"context"
-	"ecommerce_site/src/adapter/mapper"
 	"ecommerce_site/src/adapter/model"
 	"ecommerce_site/src/common/dto"
 	"ecommerce_site/src/common/imgbb"
@@ -96,7 +95,7 @@ func (u *ProductUseCase) AddProduct(ctx context.Context, req *model.ProductReqCr
 			},
 		}, nil
 	}
-	list_id_image_str := mapper.JoinInt64SliceToString(list_id_image)
+	//	list_id_image_str := mapper.JoinInt64SliceToString(list_id_image)
 
 	err = u.product.AddProduct(ctx, tx, &model.Product{
 		ID:            idProduct,
@@ -111,7 +110,7 @@ func (u *ProductUseCase) AddProduct(ctx context.Context, req *model.ProductReqCr
 		UpdatedAt:     int(utils.GetCurrentTimestamp()),
 		Describe:      req.Describe,
 		IDTypeProduct: req.IDTypeProduct,
-		ListIdImage:   list_id_image_str,
+		//ListIdImage:   list_id_image_str,
 	})
 	if err != nil {
 		tx.Rollback()

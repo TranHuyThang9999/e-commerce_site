@@ -16,7 +16,7 @@ type Product struct {
 	UpdatedAt     int     `json:"updated_at"`
 	Describe      string  `json:"describe"`
 	IDTypeProduct int64   `json:"id_type_product"`
-	ListIdImage   string  `json:"list_id_image"`
+	//ListIdImage   string  `json:"list_id_image"`
 }
 
 type ProductReqCreate struct {
@@ -64,7 +64,7 @@ type ProductRespFindByForm struct {
 	UpdatedAt     int     `json:"updated_at"`
 	Describe      string  `json:"describe"`
 	IDTypeProduct int64   `json:"id_type_product"`
-	ListIdImage   string  `json:"list_id_image"`
+	// ListIdImage   string  `json:"list_id_image"`
 }
 
 type ProductImgaesRespFindByForm struct {

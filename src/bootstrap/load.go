@@ -26,6 +26,7 @@ func loadUseCase() []fx.Option {
 		fx.Provide(usecases.NewUseCaseAccount),
 		fx.Provide(usecases.NewJwtUseCase),
 		fx.Provide(usecases.NewProductUseCase),
+		fx.Provide(usecases.NewFileUseCase),
 	}
 }
 
@@ -43,6 +44,7 @@ func loadEngine() []fx.Option {
 		fx.Provide(controllers.NewControllerAccount),
 		fx.Provide(controllers.NewAuthController),
 		fx.Provide(controllers.NewControllerProduct),
+		fx.Provide(controllers.NewFileController),
 	}
 }
 func loadAdapter() []fx.Option {

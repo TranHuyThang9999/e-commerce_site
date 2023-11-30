@@ -17,3 +17,7 @@ type ImageStorageRespFindList struct {
 type Data struct {
 	URL string `json:"url"`
 }
+
+type DeleteImageByIdResp struct {
+	Result Result `json:"result"`
+}
