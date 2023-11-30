@@ -52,6 +52,7 @@ require (
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.19 // indirect
 	github.com/rs/cors/wrapper/gin v0.0.0-20231013084403-73f81b45a644
+	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
 	go.uber.org/fx v1.20.1
 	golang.org/x/sys v0.14.0 // indirect
 	gorm.io/driver/postgres v1.5.4

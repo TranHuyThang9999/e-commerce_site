@@ -46,7 +46,8 @@ CREATE TABLE products(
     updated_at INT, -- Ngày cập nhật sản phẩm
     describe VARCHAR(510),
     id_type_product BIGINT,
-    list_id_image  VARCHAR(255)
+    list_id_image  VARCHAR(255),
+    number_of_photos int,
 );
 
 CREATE TABLE image_storages(

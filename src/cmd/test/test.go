@@ -1,20 +1,48 @@
 package main
 
 import (
-	"ecommerce_site/src/common/log"
+	"fmt"
+	"html/template"
+	"log"
 	"net/http"
 
-	"github.com/gin-gonic/gin"
+	qrcode "github.com/skip2/go-qrcode"
 )
 
-func main() {
-	r := gin.Default()
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"message": "pong",
-		})
+func generateQR(w http.ResponseWriter, r *http.Request) {
+	// Điền thông tin thanh toán của bạn ở đây (ví dụ: số tài khoản ngân hàng)
+	paymentInfo := "YourBankAccountNumber"
+	qrCode := fmt.Sprintf("YourPaymentURL?info=%s", paymentInfo)
 
-		log.Infof("Req", c.GetInt64("k"))
-	})
-	r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
+	// Tạo mã QR
+	err := qrcode.WriteFile(qrCode, qrcode.Medium, 256, "qr.png")
+	if err != nil {
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		return
+	}
+
+	// Hiển thị mã QR trong trang HTML
+	tmpl, err := template.New("qr").Parse(`
+	<!DOCTYPE html>
+	<html>
+	<head>
+		<title>QR Code Payment</title>
+	</head>
+	<body>
+		<h1>Scan the QR Code to make a payment</h1>
+		<img src="qr.png" alt="QR Code">
+	</body>
+	</html>
+	`)
+	if err != nil {
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		return
+	}
+
+	tmpl.Execute(w, nil)
+}
+
+func main() {
+	http.HandleFunc("/", generateQR)
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }

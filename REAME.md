@@ -1,3 +1,5 @@
+
+
 thiết kế database bảng user với 3 vai trò --  người dùng ban đầu đk vào dùng app là người mua , sau đó có thể là đk bán , người quản trị có thể khóa trạng thái mua hoặc bán của người dùng
 
 user có --
