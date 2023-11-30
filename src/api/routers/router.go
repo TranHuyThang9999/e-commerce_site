@@ -42,8 +42,10 @@ func NewApiRouter(
 	{
 		userGroup.POST("/product/add", controllerProduct.AddProduct)
 		userGroup.GET("/product/list", controllerProduct.GetListProduct)
-		userGroup.DELETE("/image/describe/:id", controllerImage.DeleteImageById)
 		userGroup.DELETE("/product/", controllerProduct.DeleteProductById)
+		//image
+		userGroup.DELETE("/image/describe/:id", controllerImage.DeleteImageById)
+		userGroup.GET("/images/", controllerImage.GetAllImageForUserNameByIdProduct)
 	}
 
 	return &ApiRouter{

@@ -28,3 +28,15 @@ func (file *FileController) DeleteImageById(ctx *gin.Context) {
 	}
 	ctx.JSON(200, resp)
 }
+func (file *FileController) GetAllImageForUserNameByIdProduct(ctx *gin.Context) {
+
+	idProduct := ctx.Query("id")
+
+	resp, err := file.file.GetAllImageForUserNameByIdProduct(ctx, idProduct)
+	if err != nil {
+		ctx.JSON(200, err)
+		return
+	}
+	ctx.JSON(200, resp)
+
+}

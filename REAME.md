@@ -12,3 +12,59 @@ user có --
 // lam producr all , car them xua xoa
 add date_of_birth -ok
 --Home
+
+//  có thể thêm 1 bảng nũa check thời gian sống của OTP
+
+// phần update người thêm vào có thể xóa hoặc thêm ảnh từ bảng  có phần bảng ảnh mới xửa xóa
+
+
+//list product
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///	now := time.Now()
+	otherTime := now.Add(60 * time.Second)
+	nowTimestamp := now.Unix()
+	otherTimestamp := otherTime.Unix()
+	if otherTimestamp-nowTimestamp <= 60 {
+		fmt.Println("Hai thời điểm cách nhau chính xác 60 giây.", "*")
+	} else {
+		fmt.Println("Hai thời điểm không cách nhau đúng 60 giây.", "#")
+	}
+//

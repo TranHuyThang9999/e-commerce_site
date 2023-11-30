@@ -17,4 +17,5 @@ type RepositoryUploadImage interface {
 	FindAllImages(ctx context.Context) ([]*model.ImageStorage, error)
 	GetFileById(ctx context.Context, id int64) (*model.ImageStorage, error)
 	DeleteImagesByIdProduct(ctx context.Context, tx *gorm.DB, idProduct int64) error
+	DeleteImagesByListId(ctx context.Context, tx *gorm.DB, ids []int64) error
 }

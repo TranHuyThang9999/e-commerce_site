@@ -57,6 +57,9 @@ const (
 
 	IMAGE_NOT_FOUND_CODE = 34
 	IMAGE_NOT_FOUND_MESS = "not found image"
+
+	IMAGES_EMPTY_CODE  = 36
+	IMAGEST_EMPTY_MESS = "Image empty"
 )
 
 const (

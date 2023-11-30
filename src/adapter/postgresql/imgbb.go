@@ -65,3 +65,7 @@ func (u *CollectionUploadFile) DeleteImagesByIdProduct(ctx context.Context, tx *
 	result := tx.Where("id_product = ?", idProduct).Delete(&model.ImageStorage{})
 	return result.Error
 }
+func (u *CollectionUploadFile) DeleteImagesByListId(ctx context.Context, tx *gorm.DB, ids []int64) error {
+	result := tx.Where("id IN (?)", ids).Delete(&model.ImageStorage{})
+	return result.Error
+}

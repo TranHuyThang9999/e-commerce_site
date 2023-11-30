@@ -69,15 +69,10 @@ type ProductRespFindByForm struct {
 	// ListIdImage   string  `json:"list_id_image"`
 }
 
-type ProductImgaesRespFindByForm struct {
-	Products *ProductRespFindByForm `json:"products"`
-	//Images   []*ImageStorage        `json:"images"`
-}
-
 type ProductListRespSeller struct {
-	Result                      Result                         `json:"result"`
-	Total                       int                            `json:"total"`
-	ProductImgaesRespFindByForm []*ProductImgaesRespFindByForm `json:"product_imgaes_resp_find_by_form"`
+	Result  Result     `json:"result"`
+	Total   int        `json:"total"`
+	Product []*Product `json:"product"`
 }
 
 // ProductType struct đại diện cho loại sản phẩm
@@ -85,5 +80,23 @@ type ProductType struct {
 	ID int64 `json:"id"`
 }
 type ProductDeleteByIdResp struct {
+	Result Result `json:"result"`
+}
+type ProductUpdateByIdReq struct {
+	ID            int64                   `form:"id"`
+	IDUser        int64                   `form:"id_user"`
+	NameProduct   string                  `form:"name_product"`
+	Quantity      int                     `form:"quantity"`
+	SellStatus    int                     `form:"sell_status"`
+	Price         float64                 `form:"price"`
+	Discount      float64                 `form:"discount"`
+	Manufacturer  string                  `form:"manufacturer"`
+	Describe      string                  `form:"describe"`
+	IDTypeProduct int64                   `form:"id_type_product"`
+	IdImage       int64                   `form:"id_image"`
+	Files         []*multipart.FileHeader `form:"files"`
+}
+
+type ProductUpdateByIdResp struct {
 	Result Result `json:"result"`
 }

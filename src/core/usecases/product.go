@@ -66,6 +66,7 @@ func (u *ProductUseCase) AddProduct(ctx context.Context, req *model.ProductReqCr
 			},
 		}, nil
 	}
+
 	inforImages, err := imgbb.ProcessImages(req.Files)
 	if err != nil {
 		tx.Rollback()
@@ -139,7 +140,6 @@ func (u *ProductUseCase) AddProduct(ctx context.Context, req *model.ProductReqCr
 
 func (u *ProductUseCase) GetListProductUserSeller(ctx context.Context, req *dto.ProductReqFindByForm) (*model.ProductListRespSeller, error) {
 
-	var productsListSeller []*model.ProductImgaesRespFindByForm // list sp
 	var limit int
 	var offset int
 
@@ -202,21 +202,13 @@ func (u *ProductUseCase) GetListProductUserSeller(ctx context.Context, req *dto.
 		}, nil
 	}
 
-	for _, v := range productsById {
-		productsListSeller = append(productsListSeller, &model.ProductImgaesRespFindByForm{
-			Products: v,
-
-			//Images: imagesMap[v.ID],
-		})
-	}
-
 	return &model.ProductListRespSeller{
 		Result: model.Result{
 			Code:    enums.SUCCESS_CODE,
 			Message: enums.SUCCESS_MESS,
 		},
-		Total:                       len(productsById),
-		ProductImgaesRespFindByForm: productsListSeller,
+		Total:   len(productsById),
+		Product: productsById,
 	}, nil
 }
 func (u *ProductUseCase) DeleteProductById(ctx context.Context, idProduct string) (*model.ProductDeleteByIdResp, error) {
@@ -263,6 +255,97 @@ func (u *ProductUseCase) DeleteProductById(ctx context.Context, idProduct string
 	}
 	tx.Commit()
 	return &model.ProductDeleteByIdResp{
+		Result: model.Result{
+			Code:    enums.SUCCESS_CODE,
+			Message: enums.SUCCESS_MESS,
+		},
+	}, nil
+}
+func (u *ProductUseCase) UpdateProductById(ctx context.Context, req *model.ProductUpdateByIdReq) (*model.ProductUpdateByIdResp, error) {
+
+	updateAt := utils.GetCurrentTimestamp()
+	var listInfodata []*model.ImageStorage
+
+	tx, err := u.trans.BeginTransaction(ctx)
+	if err != nil {
+		return &model.ProductUpdateByIdResp{
+			Result: model.Result{
+				Code:    enums.TRANSACTION_INVALID_CODE,
+				Message: enums.TRANSACTION_INVALID_MESS,
+			},
+		}, err
+	}
+
+	productResp, err := u.product.FindProductById(ctx, req.ID)
+	if err != nil {
+		return &model.ProductUpdateByIdResp{
+			Result: model.Result{
+				Code:    enums.DB_ERR_CODE,
+				Message: enums.DB_ERR_MESS,
+			},
+		}, nil
+	}
+
+	inforImages, err := imgbb.ProcessImages(req.Files)
+	if err != nil {
+		tx.Rollback()
+		return &model.ProductUpdateByIdResp{
+			Result: model.Result{
+				Code:    enums.DB_ERR_CODE,
+				Message: enums.DB_ERR_MESS,
+			},
+		}, nil
+	}
+	if len(inforImages) > 0 {
+		for _, file := range inforImages {
+			id_image := utils.GenerateUniqueUUid()
+			listInfodata = append(listInfodata, &model.ImageStorage{
+				ID:        id_image,
+				Url:       file.URL,
+				IDUser:    req.IDUser,
+				IDProduct: req.ID,
+			})
+		}
+
+		err = u.file.UploadImageMutileFile(ctx, tx, listInfodata) //
+		if err != nil {
+			log.Infof("data ", err) //
+			tx.Rollback()
+			return &model.ProductUpdateByIdResp{
+				Result: model.Result{
+					Code:    enums.DB_ERR_CODE,
+					Message: enums.DB_ERR_MESS,
+				},
+			}, nil
+		}
+	}
+
+	err = u.product.UpdateProductById(ctx, tx, &model.Product{
+		ID:             req.ID,
+		IDUser:         req.IDUser,
+		NameProduct:    req.Describe,
+		Quantity:       req.Quantity,
+		SellStatus:     req.SellStatus,
+		Price:          req.Price,
+		Discount:       req.Discount,
+		Manufacturer:   req.Manufacturer,
+		CreatedAt:      productResp.CreatedAt,
+		UpdatedAt:      int(updateAt),
+		Describe:       req.Describe,
+		IDTypeProduct:  req.IDTypeProduct,
+		NumberOfPhotos: len(listInfodata),
+	})
+	if err != nil {
+		tx.Rollback()
+		return &model.ProductUpdateByIdResp{
+			Result: model.Result{
+				Code:    enums.DB_ERR_CODE,
+				Message: enums.DB_ERR_MESS,
+			},
+		}, nil
+	}
+	tx.Commit()
+	return &model.ProductUpdateByIdResp{
 		Result: model.Result{
 			Code:    enums.SUCCESS_CODE,
 			Message: enums.SUCCESS_MESS,

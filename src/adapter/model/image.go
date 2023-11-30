@@ -21,3 +21,8 @@ type Data struct {
 type DeleteImageByIdResp struct {
 	Result Result `json:"result"`
 }
+type ImagesRespGetListByIdProduct struct {
+	Result       Result          `json:"result"`
+	Total        int             `json:"total"`
+	ImageStorage []*ImageStorage `json:"image_storage"`
+}
