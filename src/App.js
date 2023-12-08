@@ -1,12 +1,11 @@
-import SingUp from "./components/pkgs/SignUp/SingUp";
-import VerificationCode from "./components/pkgs/VerificationCode/VerificationCode";
+import AddProducts from "./components/pkgs/products/AddProducts";
 
 
 function App() {
   return (
     <div>
-    {/* <SingUp/> */}
-    <VerificationCode/>
+      {/* <GetAllProductByIdUser/> */}
+      <AddProducts/>
     </div>
   );
 }
